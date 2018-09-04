@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import CreateGroup from './createGroup.js';
-import findGroup from './findGroup.js';
+// import JoinGroup from './joinGroup.js';
 import Launch from './launch.js';
 import Home from './home.js';
 import SignUp from './signup.js';
@@ -33,7 +33,7 @@ firebase.initializeApp(firebaseConfig);
         <Scene key="launch" component={Launch} hideNavBar={true}/>
         <Scene key="home" component={Home} title="Home" hideNavBar={true}/>
         <Scene key="createGroup" component={CreateGroup} hideNavBar={true}/>
-        <Scene key="findGroup" component={FindGroup} title="Home" hideNavBar={true}/>
+        {/* <Scene key="joinGroup" component={JoinGroup} title="Home" hideNavBar={true}/> */}
       </Stack>
     </Router>
     );
