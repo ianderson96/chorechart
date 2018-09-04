@@ -4,7 +4,7 @@ import Button from './button.js';
 import * as firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
 
-export class SignUp extends React.Component {
+export class CreateGroup extends React.Component {
   constructor(props) {
     super(props);
     var createUser = this.createUser.bind(this);
@@ -65,6 +65,6 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SignUp;
+export default CreateGroup;
 
 

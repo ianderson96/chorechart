@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import * as firebase from 'firebase';
+import Button from './button.js';
 import { Actions } from 'react-native-router-flux';
 
 export class SignIn extends React.Component {
@@ -21,7 +22,7 @@ export class SignIn extends React.Component {
     firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
     .then (function(){
     if (signedIn === true) 
-    {Actions.push('home');};
+    {Actions.push('launch');};
     })
     .catch(function(error) {
     var errorCode = error.code;
@@ -42,8 +43,9 @@ export class SignIn extends React.Component {
         value={this.state.email} placeholder="email" style={styles.input} />
         <TextInput secureTextEntry={true} onChangeText={(password) => this.setState({password})}
         value={this.state.password} placeholder="password" style={styles.input}/>
-        <TouchableOpacity onPress={this.signInUser.bind(this)} style={styles.button}><Text style={{color:'black'}}>Sign In</Text></TouchableOpacity>
-        <TouchableOpacity onPress={this.goToSignUp.bind(this)} style={styles.button}><Text style={{color:'black'}}>Sign Up</Text></TouchableOpacity>
+        <Button style={styles.padBottom} onPress={this.signInUser.bind(this)} text="Sign In" />
+        <Button onPress={this.goToSignUp.bind(this)} text="Sign Up" />
+
       </View>
     );
   }
@@ -56,11 +58,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     height:600,
-  },
-  button: {
-    backgroundColor:"#8203fd",
-    marginTop:10,
-    padding:30
   },
   input: {
     marginTop: 10,
