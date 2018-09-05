@@ -11,11 +11,19 @@ export class Launch extends React.Component {
     };
   }
 
+  createGroup() {
+    Actions.push("createGroup");
+  }
+
+  joinGroup() {
+    Actions.push("joinGroup");
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Button text="Create New Group" onPress={Actions.push("createGroup")} />
-        <Button text="Join a Group" onPress={Actions.push("joinGroup")} />
+        <Button text="Create New Group" onPress={this.createGroup.bind(this)} />
+        <Button text="Join a Group" onPress={this.joinGroup.bind(this)} />
       </View>
     );
   }

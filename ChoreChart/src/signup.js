@@ -9,43 +9,69 @@ export class SignUp extends React.Component {
     super(props);
     var createUser = this.createUser.bind(this);
     this.state = {
-      username: '',
+      firstName: '',
+      lastName: '',
       email: '',
       password: '',
-      id:1
+      userCreatedId:'',
     };
   }
 
   createUser() {
-    var theEmail = this.state.email;
-    var thePw = this.state.password;
-    var userCreated = true;
-    console.log("Email Address is: " + this.state.email);
+    if (!this.state.firstName) {
+      throw "Please enter your first name.";
+    }
+    if (!this.state.lastName) {
+      throw "Please enter your last name.";
+    }
     firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
-    .then (function(){
-    console.log("Out of catch block, boolean is: " + userCreated);
+    .then(function(user){
+      var theId = user.user.uid;
+      console.log(theId)
+      this.setState({
+        userCreatedId: theId
+      });
+      console.log("user id: " + this.state.userCreatedId);
+      firebase.database().ref('users/' + this.state.userCreatedId).set({
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+    });
+    }.bind(this))
+    .catch(function(error) {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log("Error message is " + errorMessage);
+    });
+}
+  
+
+  submitCreateUserForm() {
+    var userCreated = true;
+    try {
+    this.createUser();
+    }
+    catch(error) {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log("Error message is " + errorMessage);
+      userCreated = false;
+    }
     if (userCreated === true) 
     {Actions.push('launch');};
-    })
-    .catch(function(error) {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    console.log("Error message is " + errorMessage);
-    userCreated = false;
-    console.log("In catch block, boolean is: " + userCreated);
-    });
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <TextInput onChangeText={(username) => this.setState({username})}
-        value={this.state.username} placeholder='username' style={styles.input} />
+        <TextInput onChangeText={(firstName) => this.setState({firstName})}
+        value={this.state.firstName} placeholder='first name' style={styles.input} />
+        <TextInput onChangeText={(lastName) => this.setState({lastName})}
+        value={this.state.lastName} placeholder='last name' style={styles.input} />
         <TextInput onChangeText={(email) => this.setState({email})}
         value={this.state.email} placeholder='email' style={styles.input} />
         <TextInput secureTextEntry={true} onChangeText={(password) => this.setState({password})}
         value={this.state.password} placeholder='password' style={styles.input}/>
-        <Button onPress={this.createUser.bind(this)} text="Sign Up" />
+        <Button onPress={this.submitCreateUserForm.bind(this)} text="Sign Up" />
       </View>
     );
   }

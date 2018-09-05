@@ -16,24 +16,8 @@ export class CreateGroup extends React.Component {
     };
   }
 
-  createUser() {
-    var theEmail = this.state.email;
-    var thePw = this.state.password;
-    var userCreated = true;
-    console.log("Email Address is: " + this.state.email);
-    firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
-    .then (function(){
-    console.log("Out of catch block, boolean is: " + userCreated);
-    if (userCreated === true) 
-    {Actions.push('launch');};
-    })
-    .catch(function(error) {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    console.log("Error message is " + errorMessage);
-    userCreated = false;
-    console.log("In catch block, boolean is: " + userCreated);
-    });
+  submitForm() {
+      
   }
 
   render() {

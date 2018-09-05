@@ -32,7 +32,7 @@ firebase.initializeApp(firebaseConfig);
         <Scene key="signup" component={SignUp} title="Sign Up"/>
         <Scene key="launch" component={Launch} hideNavBar={true}/>
         <Scene key="home" component={Home} title="Home" hideNavBar={true}/>
-        <Scene key="createGroup" component={CreateGroup} hideNavBar={true}/>
+        <Scene key="createGroup" component={CreateGroup} title="Create a Group"/>
         {/* <Scene key="joinGroup" component={JoinGroup} title="Home" hideNavBar={true}/> */}
       </Stack>
     </Router>
