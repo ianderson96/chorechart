@@ -13,7 +13,7 @@ export class SignUp extends React.Component {
       lastName: '',
       email: '',
       password: '',
-      userCreatedId:'',
+      userCreatedId: '',
     };
   }
 
@@ -25,52 +25,51 @@ export class SignUp extends React.Component {
       throw "Please enter your last name.";
     }
     firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
-    .then(function(user){
-      var theId = user.user.uid;
-      console.log(theId)
-      this.setState({
-        userCreatedId: theId
+      .then(function (user) {
+        var theId = user.user.uid;
+        console.log(theId)
+        this.setState({
+          userCreatedId: theId
+        });
+        console.log("user id: " + this.state.userCreatedId);
+        firebase.database().ref('users/' + this.state.userCreatedId).set({
+          firstName: this.state.firstName,
+          lastName: this.state.lastName,
+        });
+      }.bind(this))
+      .catch(function (error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.log("Error message is " + errorMessage);
       });
-      console.log("user id: " + this.state.userCreatedId);
-      firebase.database().ref('users/' + this.state.userCreatedId).set({
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-    });
-    }.bind(this))
-    .catch(function(error) {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      console.log("Error message is " + errorMessage);
-    });
-}
-  
+  }
+
 
   submitCreateUserForm() {
     var userCreated = true;
     try {
-    this.createUser();
+      this.createUser();
     }
-    catch(error) {
+    catch (error) {
       var errorCode = error.code;
       var errorMessage = error.message;
       console.log("Error message is " + errorMessage);
       userCreated = false;
     }
-    if (userCreated === true) 
-    {Actions.push('launch');};
+    if (userCreated === true) { Actions.push('launch'); };
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <TextInput onChangeText={(firstName) => this.setState({firstName})}
-        value={this.state.firstName} placeholder='first name' style={styles.input} />
-        <TextInput onChangeText={(lastName) => this.setState({lastName})}
-        value={this.state.lastName} placeholder='last name' style={styles.input} />
-        <TextInput onChangeText={(email) => this.setState({email})}
-        value={this.state.email} placeholder='email' style={styles.input} />
-        <TextInput secureTextEntry={true} onChangeText={(password) => this.setState({password})}
-        value={this.state.password} placeholder='password' style={styles.input}/>
+        <TextInput onChangeText={(firstName) => this.setState({ firstName })}
+          value={this.state.firstName} placeholder='first name' style={styles.input} />
+        <TextInput onChangeText={(lastName) => this.setState({ lastName })}
+          value={this.state.lastName} placeholder='last name' style={styles.input} />
+        <TextInput onChangeText={(email) => this.setState({ email })}
+          value={this.state.email} placeholder='email' style={styles.input} />
+        <TextInput secureTextEntry={true} onChangeText={(password) => this.setState({ password })}
+          value={this.state.password} placeholder='password' style={styles.input} />
         <Button onPress={this.submitCreateUserForm.bind(this)} text="Sign Up" />
       </View>
     );
@@ -83,11 +82,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    height:600,
+    height: 600,
   },
   input: {
     marginTop: 10,
-    padding:30
+    padding: 30
   }
 });
 

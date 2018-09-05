@@ -7,10 +7,10 @@ import SignUp from './signup.js';
 class Home extends React.Component {
   constructor(props) {
     super(props);
-  var user = firebase.auth().currentUser;  
+    var user = firebase.auth().currentUser;
     this.state = {
       text: 'What is your name?',
-      id:1,
+      id: 1,
       name: user.displayName,
       email: user.email,
       photoURL: user.photoURL
@@ -21,7 +21,7 @@ class Home extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-      <Text>{this.state.email}</Text>
+        <Text>{this.state.email}</Text>
       </View>
     );
   }
@@ -36,9 +36,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   button: {
-    backgroundColor:"#8203fd",
-    marginTop:10,
-    padding:30
+    backgroundColor: "#8203fd",
+    marginTop: 10,
+    padding: 30
   }
 });
 
