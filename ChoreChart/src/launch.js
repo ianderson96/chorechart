@@ -12,7 +12,7 @@ export class Launch extends React.Component {
     }
 
     createGroup() {
-        Actions.push("createGroup");
+        Actions.push('createGroup');
     }
 
     joinGroup() {

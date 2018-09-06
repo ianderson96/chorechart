@@ -9,7 +9,6 @@ import SignIn from './signin.js';
 import * as firebase from 'firebase';
 import { Router, Scene, Stack } from 'react-native-router-flux';
 
-
 export default class App extends React.Component {
   constructor(props) {
     super(props);

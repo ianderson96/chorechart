@@ -7,7 +7,8 @@
     "jest-expo": "~27.0.0",
     "prettier": "^1.14.2",
     "react-native-scripts": "1.14.0",
-    "react-test-renderer": "16.3.1"
+    "react-test-renderer": "16.3.1",
+    "shortid": "^2.2.13"
   },
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
@@ -28,6 +29,7 @@
     "react-native-firebase": "^4.3.8",
     "react-native-router-flux": "^4.0.1",
     "react-redux": "^5.0.7",
-    "redux": "^4.0.0"
+    "redux": "^4.0.0",
+    "uniqid": "^5.0.3"
   }
 }

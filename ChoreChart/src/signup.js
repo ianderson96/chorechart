@@ -35,6 +35,7 @@ export class SignUp extends React.Component {
         firebase.database().ref('users/' + this.state.userCreatedId).set({
           firstName: this.state.firstName,
           lastName: this.state.lastName,
+          email: this.state.email,
         });
       }.bind(this))
       .catch(function (error) {

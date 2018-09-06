@@ -17,7 +17,6 @@ class Home extends React.Component {
     };
   }
 
-
   render() {
     return (
       <View style={styles.container}>
@@ -26,7 +25,6 @@ class Home extends React.Component {
     );
   }
 }
-
 
 const styles = StyleSheet.create({
   container: {
