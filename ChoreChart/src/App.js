@@ -1,5 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity
+} from 'react-native';
 import CreateGroup from './createGroup.js';
 // import JoinGroup from './joinGroup.js';
 import Launch from './launch.js';
@@ -14,13 +20,12 @@ export default class App extends React.Component {
     super(props);
     // Initialize Firebase
     const firebaseConfig = {
-      apiKey: "AIzaSyAEyczfrS3xTdkZ-AljW4tycE9_D0aNdHI",
-      authDomain: "chorechart-d8661.firebaseapp.com",
-      databaseURL: "https://chorechart-d8661.firebaseio.com/",
-      storageBucket: "chorechart-d8661.appspot.com"
+      apiKey: 'AIzaSyAEyczfrS3xTdkZ-AljW4tycE9_D0aNdHI',
+      authDomain: 'chorechart-d8661.firebaseapp.com',
+      databaseURL: 'https://chorechart-d8661.firebaseio.com/',
+      storageBucket: 'chorechart-d8661.appspot.com'
     };
     firebase.initializeApp(firebaseConfig);
-
   }
 
   render() {
@@ -31,7 +36,11 @@ export default class App extends React.Component {
           <Scene key="signup" component={SignUp} title="Sign Up" />
           <Scene key="launch" component={Launch} hideNavBar={true} />
           <Scene key="home" component={Home} title="Home" hideNavBar={true} />
-          <Scene key="createGroup" component={CreateGroup} title="Create a Group" />
+          <Scene
+            key="createGroup"
+            component={CreateGroup}
+            title="Create a Group"
+          />
           {/* <Scene key="joinGroup" component={JoinGroup} title="Home" hideNavBar={true}/> */}
         </Stack>
       </Router>
