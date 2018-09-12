@@ -9,6 +9,7 @@ import {
 import * as firebase from 'firebase';
 import Button from './button.js';
 import { Actions } from 'react-native-router-flux';
+import { GetUserFromDb, getUserFromDb } from './dbUtils.js';
 
 export class SignIn extends React.Component {
   constructor(props) {
@@ -20,17 +21,31 @@ export class SignIn extends React.Component {
     };
   }
 
-  signInUser() {
-    var theEmail = this.state.email;
-    var thePw = this.state.password;
+  hasGroup = user => {
+    firebase
+      .database()
+      .ref('users/' + user.uid)
+      .on('value', function(snapshot) {
+        if (snapshot.val().groups) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+  };
+
+  signInUser(hasGroup) {
     var signedIn = true;
-    console.log('Email Address is: ' + this.state.email);
     firebase
       .auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(function() {
         if (signedIn === true) {
-          Actions.push('launch');
+          if (hasGroup) {
+            Actions.push('home');
+          } else {
+            Actions.push('launch');
+          }
         }
       })
       .catch(function(error) {
@@ -40,6 +55,19 @@ export class SignIn extends React.Component {
         signedIn = false;
       });
   }
+
+  startSignInUser = () => {
+    var user;
+    getUserFromDb('email', this.state.email).then(result => {
+      user = result;
+      var val = user.val();
+      if (user.child(Object.keys(val)[0]).hasChild('groups')) {
+        this.signInUser(true);
+      } else {
+        this.signInUser(false);
+      }
+    });
+  };
 
   goToSignUp() {
     Actions.push('signup');
@@ -63,7 +91,7 @@ export class SignIn extends React.Component {
         />
         <Button
           style={styles.padBottom}
-          onPress={this.signInUser.bind(this)}
+          onPress={this.startSignInUser.bind(this)}
           text="Sign In"
         />
         <Button onPress={this.goToSignUp.bind(this)} text="Sign Up" />
