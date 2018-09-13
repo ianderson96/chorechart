@@ -9,6 +9,7 @@ import {
 import Button from './button.js';
 import * as firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
+import { getUserFromDb, addDefaultChores } from './dbUtils.js';
 var shortid = require('shortid');
 
 export class CreateGroup extends React.Component {
@@ -95,22 +96,20 @@ export class CreateGroup extends React.Component {
         .update({
           [this.state.memberUsernames[i]]: true
         });
-      firebase
-        .database()
-        .ref()
-        .child('users')
-        .orderByChild('username')
-        .equalTo(this.state.memberUsernames[i])
-        .on('value', function(snapshot) {
-          var uid = Object.keys(snapshot.val())[0];
-          firebase
-            .database()
-            .ref('users/' + uid + '/groups/')
-            .set({
-              [groupid]: true
-            });
-        });
+      console.log(this.state.memberUsernames);
+      getUserFromDb('username', this.state.memberUsernames[i]).then(result => {
+        console.log(result);
+        var uid = Object.keys(result.val())[0];
+        firebase
+          .database()
+          .ref('users/' + uid + '/groups/')
+          .set({
+            [groupid]: true
+          });
+      });
     }
+    addDefaultChores(groupid);
+    Actions.push('home');
   };
 
   // renders the createGroup component

@@ -41,7 +41,6 @@ export class SignUp extends React.Component {
           this.setState({
             userCreatedId: theId
           });
-          console.log('user id: ' + this.state.userCreatedId);
           firebase
             .database()
             .ref('users/' + this.state.userCreatedId)

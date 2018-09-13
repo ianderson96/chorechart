@@ -9,7 +9,7 @@ import {
 import * as firebase from 'firebase';
 import Button from './button.js';
 import { Actions } from 'react-native-router-flux';
-import { GetUserFromDb, getUserFromDb } from './dbUtils.js';
+import { getUserFromDb } from './dbUtils.js';
 
 export class SignIn extends React.Component {
   constructor(props) {

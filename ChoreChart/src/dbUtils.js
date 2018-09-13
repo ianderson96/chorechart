@@ -1,7 +1,6 @@
 import * as firebase from 'firebase';
 
 export function getUserFromDb(key, value) {
-  var result = 'not working';
   return firebase
     .database()
     .ref()
@@ -12,4 +11,33 @@ export function getUserFromDb(key, value) {
     .then(function(snapshot) {
       return snapshot;
     });
+}
+
+export function addChoreToGroup(groupid, description, frequency) {
+  var ref = firebase.database().ref('chores/' + groupid);
+  ref.push({
+    description: description,
+    frequency: frequency,
+    completed: false,
+    active: true
+  });
+}
+
+export function addDefaultChores(groupid) {
+  var chorelist = [
+    'Sweep the kitchen',
+    'Clean the fridge',
+    'Clean the freezer',
+    'Wipe down kitchen counters and cabinets',
+    'Dust the kitchen',
+    'Vacuum high-traffic areas',
+    'Tidy the main living space',
+    'Scrub the bathroom counter',
+    'Scrub the sink',
+    'Scrub the toilet seat and toilet bowl',
+    'Clean the shower'
+  ];
+  for (i = 0; i < chorelist.length; i++) {
+    addChoreToGroup(groupid, chorelist[i], 'weekly');
+  }
 }
