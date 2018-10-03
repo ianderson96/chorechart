@@ -7,6 +7,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 import * as firebase from 'firebase';
+import { getChoresFromGroupId, getUserFromDb } from './dbUtils.js';
 import Chore from './chore.js';
 
 class Home extends React.Component {
@@ -20,6 +21,22 @@ class Home extends React.Component {
       email: user.email,
       photoURL: user.photoURL
     };
+  }
+
+  componentDidMount() {
+    this.setChoreList();
+  }
+
+  setChoreList() {
+    var groupObject = getUserFromDb('username', this.state.name);
+    console.log('group object: ' + groupObject);
+    var groupId = Object.keys(groupObject.val())[0];
+    var chores = getChoresFromGroupId(groupId);
+    for (var property in chores) {
+      if (object.hasOwnProperty(property)) {
+        console.log(chores[property]);
+      }
+    }
   }
 
   render() {

@@ -13,11 +13,29 @@ export function getUserFromDb(key, value) {
     });
 }
 
-export function addChoreToGroup(groupid, description, frequency) {
+export function getChoresFromGroupId(groupId) {
+  return firebase
+    .database()
+    .ref('chores')
+    .orderByKey()
+    .equalTo(groupId)
+    .once('value')
+    .then(function(snapshot) {
+      return snapshot;
+    });
+}
+
+export function addChoreToGroup(
+  groupid,
+  description,
+  completedFrequency,
+  assignedFrequency
+) {
   var ref = firebase.database().ref('chores/' + groupid);
   ref.push({
     description: description,
-    frequency: frequency,
+    completedFrequency: completedFrequency,
+    assignedFrequency: assignedFrequency,
     completed: false,
     active: true
   });
@@ -38,6 +56,6 @@ export function addDefaultChores(groupid) {
     'Clean the shower'
   ];
   for (i = 0; i < chorelist.length; i++) {
-    addChoreToGroup(groupid, chorelist[i], 'weekly');
+    addChoreToGroup(groupid, chorelist[i], 'weekly', 'weekly');
   }
 }
