@@ -7,7 +7,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 import * as firebase from 'firebase';
-import SignUp from './signup.js';
+import Chore from './chore.js';
 
 class Home extends React.Component {
   constructor(props) {
@@ -25,7 +25,7 @@ class Home extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>{this.state.email}</Text>
+        <Chore description="Wipe down kitchen counters and cabinets" />
       </View>
     );
   }
